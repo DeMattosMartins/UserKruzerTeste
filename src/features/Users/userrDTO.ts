@@ -9,5 +9,4 @@ export type UserDTO = defaultType & {
     email: string;
     cpf: string;
     phone?: string;
-    id?: string;
 };

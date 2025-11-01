@@ -4,7 +4,7 @@ import { UserService } from "../../userService";
 export class CreateUserUseCase {
     constructor(private readonly userService: UserService) {}
 
-    async execute(user: UserDTO): Promise<{user: UserDTO}> {
+    async execute(user: UserDTO): Promise<{user: Pick<UserDTO, 'name' | 'email' | 'cpf' | 'phone'>}> {
         try {
             const userCreated = await this.userService.createUser(user);
 

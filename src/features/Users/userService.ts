@@ -68,6 +68,10 @@ export class UserService {
                     throw new Error('User not updated');
                 }
 
+                if (userUpdated.modifiedCount === 0) {
+                    throw new Error('User not updated');
+                }
+
                 return { updatedUser: true };
 
             } catch (err) {

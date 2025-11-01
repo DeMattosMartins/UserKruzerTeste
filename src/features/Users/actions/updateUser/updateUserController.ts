@@ -6,8 +6,8 @@ export function createUpdateUserController(updateUserUseCase: UpdateUserUseCase)
 
   router.put('/:id', async (req: Request, res: Response) => {
     try {
-
-      const userUpdated = await updateUserUseCase.execute({ ...req.body});
+      const id = req.params.id;
+      const userUpdated = await updateUserUseCase.execute({ ...req.body }, id);
 
       return res.status(200).json(userUpdated);
     } catch (err: any) {

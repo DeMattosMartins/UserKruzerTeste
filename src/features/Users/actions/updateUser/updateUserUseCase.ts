@@ -4,9 +4,9 @@ import { UserService } from "../../userService";
 export class UpdateUserUseCase {
   constructor(private readonly userService: UserService) {}
 
-  async execute(user: UserDTO): Promise<boolean | Error> {
+  async execute(user: UserDTO, id: string): Promise<boolean | Error> {
     
-    const userUpdated = await this.userService.updateUser(user, user.id!);
+    const userUpdated = await this.userService.updateUser(user, id);
 
     if (!userUpdated) {
       return new Error('User not found');
