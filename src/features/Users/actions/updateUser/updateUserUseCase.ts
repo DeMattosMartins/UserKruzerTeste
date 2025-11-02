@@ -9,10 +9,6 @@ export class UpdateUserUseCase {
 
         const userUpdated = await this.userService.updateUser(user, id);
 
-        if (userUpdated instanceof Error) {
-          throw userUpdated;
-        }
-
         if (!userUpdated) {
           throw new Error('User not updated');
         }
