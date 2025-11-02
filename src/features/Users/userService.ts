@@ -64,11 +64,7 @@ export class UserService {
 
                 const userUpdated = await UserModel.updateOne({ _id: id }, user);
 
-                if (!userUpdated) {
-                    throw new Error('User not updated');
-                }
-
-                if (userUpdated.modifiedCount === 0) {
+                if (userUpdated.modifiedCount === 0 || !userUpdated) {
                     throw new Error('User not updated');
                 }
 

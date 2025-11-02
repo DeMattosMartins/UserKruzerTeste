@@ -2,18 +2,25 @@ import { UserDTO } from "../../userrDTO";
 import { UserService } from "../../userService";
 
 export class UpdateUserUseCase {
-  constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: UserService) {}
 
-  async execute(user: UserDTO, id: string): Promise<boolean | Error> {
-    
-    const userUpdated = await this.userService.updateUser(user, id);
+    async execute(user: UserDTO, id: string): Promise<boolean | Error> {
+      try{
 
-    if (!userUpdated) {
-      return new Error('User not found');
-    }
+        const userUpdated = await this.userService.updateUser(user, id);
 
-    return true;
+        if (userUpdated instanceof Error) {
+          throw userUpdated;
+        }
+
+        if (!userUpdated) {
+          throw new Error('User not updated');
+        }
+
+        return true;  
+      } catch (err) {
+          throw err;
+      }
   }
 }
-
 export default UpdateUserUseCase;

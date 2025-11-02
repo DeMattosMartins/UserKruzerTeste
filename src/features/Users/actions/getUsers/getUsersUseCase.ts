@@ -5,7 +5,18 @@ export class GetUsersUseCase {
   constructor(private readonly userService: UserService) {}
 
   async execute(filters: any = {}): Promise<UserDTO[]> {
-    return await this.userService.findAllUsers(filters);
+
+    try {
+      const usersFound = await this.userService.findAllUsers(filters);
+
+      if (!usersFound) {
+        throw new Error('Users not found');
+      }
+
+      return usersFound;
+    } catch (err) {
+      throw new Error(String(err));
+    }
   }
 }
 

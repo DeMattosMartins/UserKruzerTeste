@@ -13,7 +13,6 @@ export function createUpdateUserController(updateUserUseCase: UpdateUserUseCase)
     } catch (err: any) {
 
       return res.status(500).json({ error: err?.message ?? 'Erro interno' });
-
     }
   });
 
