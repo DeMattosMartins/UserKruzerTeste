@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createGetUserRouter } from './getUserController';
+import { createGetUserRouterController } from './getUserController';
 import { GetUserUseCase } from './getUserUseCase';
 import { UserService } from '../../userService';
 
@@ -7,6 +7,6 @@ import { UserService } from '../../userService';
 export function createGetUserFactory(): Router {
   const userService = new UserService(); // usa o service que já fala com o model
   const getUserUseCase = new GetUserUseCase(userService);
-  const router = createGetUserRouter(getUserUseCase);
+  const router = createGetUserRouterController(getUserUseCase);
   return router;
 }

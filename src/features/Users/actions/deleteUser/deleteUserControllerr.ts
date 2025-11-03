@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { DeleteUserUseCase } from './deleteUserUseCase';
 
-export function createDeleteUserRouter(deleteUserUseCase: DeleteUserUseCase): Router {
+export function createDeleteUserRouterController(deleteUserUseCase: DeleteUserUseCase): Router {
   const router = Router();
 
   router.delete('/:id', async (req: Request, res: Response) => {

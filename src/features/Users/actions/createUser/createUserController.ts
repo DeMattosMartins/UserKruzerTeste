@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import CreateUserUseCase from './createUserUseCase';
 
-export function createUsersRouter(createUserUseCase: CreateUserUseCase): Router {
+export function createUsersRouterController(createUserUseCase: CreateUserUseCase): Router {
   const router = Router();
 
   router.post('/', async (req: Request, res: Response) => {

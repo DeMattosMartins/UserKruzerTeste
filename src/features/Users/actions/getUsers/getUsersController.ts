@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { GetUsersUseCase } from './getUsersUseCase';
 
-export function createGetUsersRouter(getUsersUseCase: GetUsersUseCase): Router {
+export function createGetUsersRouterController(getUsersUseCase: GetUsersUseCase): Router {
   const router = Router();
 
   router.get('/', async (req: Request, res: Response) => {
