@@ -10,7 +10,7 @@ const User = new mongoose.Schema({
     required: true
   },
   cpf: {
-    type: String,
+    type: Number,
     required: true
   },
   phone: {
@@ -19,7 +19,8 @@ const User = new mongoose.Schema({
   },
 },
 { 
-  timestamps: true 
+  timestamps: true,
+  versionKey: false
 });
 
 const UserModel = mongoose.model('Users', User);

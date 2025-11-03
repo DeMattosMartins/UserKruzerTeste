@@ -13,7 +13,7 @@ export function createDeleteUserRouter(deleteUserUseCase: DeleteUserUseCase): Ro
     } catch (err: any) {
 
       return res.status(500).json({ error: err?.message ?? 'Erro interno' });
-      
+
     }
   });
 

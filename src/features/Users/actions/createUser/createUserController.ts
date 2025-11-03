@@ -6,7 +6,6 @@ export function createUsersRouter(createUserUseCase: CreateUserUseCase): Router 
 
   router.post('/', async (req: Request, res: Response) => {
     try {
-
       const user = req.body;
       const users = await createUserUseCase.execute(user);
 

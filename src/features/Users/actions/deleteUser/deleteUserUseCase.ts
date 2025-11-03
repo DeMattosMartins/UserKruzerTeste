@@ -1,9 +1,10 @@
 import { UserService } from "../../userService";
+import { DeleteUserResponse } from "../../userService";
 
 export class DeleteUserUseCase {
     constructor(private readonly userService: UserService) {}
 
-    async execute(id: string): Promise<boolean> {
+    async execute(id: string): Promise<DeleteUserResponse> {
         try {
             const deletedUser = await this.userService.deleteUser(id);
 

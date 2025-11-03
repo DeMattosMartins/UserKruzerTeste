@@ -7,6 +7,6 @@ export type defaultType = {
 export type UserDTO = defaultType & {
     name: string;
     email: string;
-    cpf: string;
+    cpf: number;
     phone?: string;
 };
