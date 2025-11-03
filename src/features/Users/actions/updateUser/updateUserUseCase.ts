@@ -5,8 +5,7 @@ import { UpdateUserResponse } from "../../userService";
 export class UpdateUserUseCase {
     constructor(private readonly userService: UserService) {}
 
-    async execute(user: UserDTO, id: string): Promise<UpdateUserResponse | Error> {
-      
+    async execute(user: UserDTO, id: string): Promise<UpdateUserResponse> {
       try{
         // validate input
         if (!user.name || !user.email || !user.cpf || !user.phone) {
