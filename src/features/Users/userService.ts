@@ -4,9 +4,17 @@ import { DeleteResult, UpdateWriteOpResult } from 'mongoose';
 
 export class UserService {
 
-    async findAllUsers(filters?: any): Promise<UserDTO[]> {  
+    async findAllUsers(filters?: any, projection?: any, sort?: Record<string, any>, limit?: number) {  
             try {
-                return await UserModel.find(filters);
+                if(sort && limit){
+                    return await UserModel.find(filters, projection).sort(sort).limit(limit);
+                }else if(sort){
+                    return await UserModel.find(filters, projection).sort(sort);
+                }else if(limit){
+                    return await UserModel.find(filters, projection).limit(limit);
+                }else{
+                    return await UserModel.find(filters, projection);
+                }
             } catch (err) {
                 throw new Error(String(err));   
             }
