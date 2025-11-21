@@ -1,29 +1,12 @@
 import { UserDTO } from './userrDTO';
 import UserModel from './userModel';
-
-export interface UpdateUserResponse{
-    acknowledged: boolean;
-    matchedCount: number;
-    modifiedCount: number;
-    upsertedId: string | null;
-}
-
-export interface DeleteUserResponse {
-    deletedCount: number;
-    acknowledged: boolean;
-}
+import { DeleteResult, UpdateWriteOpResult } from 'mongoose';
 
 export class UserService {
 
     async findAllUsers(filters?: any): Promise<UserDTO[]> {  
             try {
-                const usersFound: UserDTO[] = await UserModel.find(filters);
-
-                if (!usersFound) {
-                   throw new Error('User not found');
-                }
-                
-                return usersFound;
+                return await UserModel.find(filters);
             } catch (err) {
                 throw new Error(String(err));   
             }
@@ -31,56 +14,43 @@ export class UserService {
 
     async findOneUser(id: string): Promise<any> {
         try {
-                const userFound = await UserModel.findOne({ _id: id });
-
-                if (!userFound) {
-                   throw new Error('User not found');
-                }
-
-                return userFound;
+                return await UserModel.findOne({ _id: id });
             } catch (err) {
                 throw new Error(String(err));
             }
     }
 
-    async createUser(user: UserDTO): Promise<Pick<UserDTO, 'name' | 'email' | 'cpf' | 'phone'>> {
-            try {
+    async createUser(user: UserDTO): Promise<UserDTO> {
+            try {  
                 const userCreated = await UserModel.create(user);
 
-                if (!userCreated) {
-                    throw new Error('User not created');
-                }
-
-                const newUser: Pick<UserDTO, 'name' | 'email' | 'cpf' | 'phone'> = {
-                    name: String(userCreated.name),
-                    email: String(userCreated.email),
-                    cpf: Number(userCreated.cpf),
-                    phone: String(userCreated.phone)
+                const newUser: UserDTO = {
+                    _id: userCreated._id.toString(),
+                    name: userCreated.name,
+                    email: userCreated.email,
+                    cpf: userCreated.cpf,
+                    phone: userCreated.phone || "",
+                    createdAt: userCreated.createdAt,
+                    updatedAt: userCreated.updatedAt
                 };
 
                 return newUser;
-
             } catch (err) {
                 throw new Error(String(err));
             }
     }
 
-    async updateUser(user: UserDTO, id: string): Promise<UpdateUserResponse> {
+    async updateUser(user: UserDTO, id: string): Promise<UpdateWriteOpResult> {
         try {
-
-                const userUpdated = await UserModel.updateOne({ _id: id }, user);
-                return userUpdated as UpdateUserResponse;
-
+                return await UserModel.updateOne({ _id: id }, user);
             } catch (err) {
                 throw new Error(String(err))
             }
     }
 
-    async deleteUser(id: string): Promise<DeleteUserResponse> {
+    async deleteUser(id: string): Promise<DeleteResult> {
             try {
-                const userDeleted = await UserModel.deleteOne({ _id: id });
-                return userDeleted;
-
+                return await UserModel.deleteOne({ _id: id });
             } catch (err) {
                 throw new Error(String(err))
             }
