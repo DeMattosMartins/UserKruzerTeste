@@ -12,12 +12,20 @@ export class UserService {
             }
     }
 
-    async findOneUser(id: string): Promise<any> {
+    async findOneUser(id: string): Promise<UserDTO | null> {
         try {
                 return await UserModel.findOne({ _id: id });
             } catch (err) {
                 throw new Error(String(err));
             }
+    }
+
+    async findAndModify(filters?: any, update?: any): Promise<UserDTO | null> {
+        try {
+            return await UserModel.findOneAndUpdate(filters, update);
+        } catch (err) {
+            throw new Error(String(err));
+        }
     }
 
     async createUser(user: UserDTO): Promise<UserDTO> {
@@ -44,15 +52,23 @@ export class UserService {
         try {
                 return await UserModel.updateOne({ _id: id }, user);
             } catch (err) {
-                throw new Error(String(err))
+                throw new Error(String(err));   
             }
+    }
+
+    async deleteMany(filters?: any): Promise<DeleteResult> {
+        try {
+            return await UserModel.deleteMany(filters);
+        } catch (err) {
+            throw new Error(String(err));
+        }
     }
 
     async deleteUser(id: string): Promise<DeleteResult> {
             try {
                 return await UserModel.deleteOne({ _id: id });
             } catch (err) {
-                throw new Error(String(err))
+                throw new Error(String(err));
             }
     }
 }
